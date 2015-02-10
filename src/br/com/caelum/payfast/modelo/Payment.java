@@ -1,6 +1,5 @@
 package br.com.caelum.payfast.modelo;
 
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement

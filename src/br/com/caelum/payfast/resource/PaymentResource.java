@@ -1,9 +1,9 @@
 package br.com.caelum.payfast.resource;
 
-import static br.com.caelum.payfast.utils.PayfastUtils.DOMAIN;
 
 import java.io.IOException;
 
+import static br.com.caelum.payfast.utils.PayfastConstants.DOMAIN;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
