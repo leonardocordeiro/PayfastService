@@ -2,8 +2,10 @@ package br.com.caelum.payfast.resource;
 
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import static br.com.caelum.payfast.utils.PayfastConstants.DOMAIN;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -26,7 +28,8 @@ public class PaymentResource {
 	@Consumes(MediaType.APPLICATION_XML) 
 	@Produces(MediaType.APPLICATION_XML)
 	public Response pay(@Context HttpServletRequest request, Payment payment) throws IOException {
-		String accessToken = request.getParameter("access_token");
+		String headerValue = request.getHeader("Authorization");
+		String accessToken = extractAccessToken(headerValue);
 		
 		WebClient client = new WebClient(DOMAIN + "/PayfastWebApplication/token/accesstoken/" + accessToken);
 		try { 
@@ -39,6 +42,10 @@ public class PaymentResource {
 		} catch(Exception e) { 
 			throw new RuntimeException(e);
 		}
+	}
+
+	private String extractAccessToken(String headerValue) {
+		return headerValue.substring("Bearer ".length() - 1);
 	}
 
 	private Response buildOkRespponse(Payment payment) {
